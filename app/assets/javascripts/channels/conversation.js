@@ -35,9 +35,11 @@ App.conversation = App.cable.subscriptions.create("ConversationChannel", {
     });
   }
 });
-$(document).on('submit', '.new_message', function(e) {
-  e.preventDefault();
-  var values = $(this).serializeArray();
-  App.conversation.speak(values);
-  $(this).trigger('reset');
+$(document).on('keypress', '.new_message', function(e) {
+  if(e.keyCode == 13) {
+    e.preventDefault();
+    var values = $(this).serializeArray();
+    App.conversation.speak(values);
+    $(this).trigger('reset');
+  }
 });

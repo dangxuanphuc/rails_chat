@@ -12,21 +12,25 @@ ul {
   overflow-x: hidden;
 }
 
-
 .message-sent {
   position: relative;
-  background-color: #D9EDF7;
-  border-color: #BCE8F1;
-  margin: 5px 20px;
-  padding: 10px;
+  background-color: #3578e5;
+  color: #fff;
+  margin: 1px 20px;
+  padding: 3px 10px;
+  border-radius: 30px;
   float: right;
 }
 
-
 .message-received {
-  background-color: #F1F0F0;
-  border-color: #EEEEEE;
-  margin: 5px 20px;
-  padding: 10px;
+  background-color: #f1f1f1;
+  margin: 1px 20px;
+  padding: 3px 10px;
+  border-radius: 30px;
   float: left;
+}
+
+.text-area {
+  resize: vertical;
+  margin: 10px 0 0 0;
 }
