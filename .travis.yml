@@ -1,8 +1,0 @@
-addons:
-  sqlite3: 3.22.0
-dist: trusty
-language: ruby
-rvm:
-  - 2.5.3
-script:
-  - bundle exec rails db:migrate RAILS_ENV=test
