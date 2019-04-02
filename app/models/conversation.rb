@@ -11,14 +11,14 @@ class Conversation < ApplicationRecord
     )
   end
 
-  def self.get(sender_id, recipient_id)
+  def self.get sender_id, recipient_id
     conversation = between(sender_id, recipient_id).first
     return conversation if conversation.present?
 
     create(sender_id: sender_id, recipient_id: recipient_id)
   end
 
-  def opposed_user(user)
+  def opposed_user user
     user == recipient ? sender : recipient
   end
 end

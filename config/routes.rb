@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  root "messages#index"
   devise_for :users
+
+  mount ActionCable.server => "/cable"
 
   resources :conversations, only: [:create] do
     resources :messages, only: [:create]
