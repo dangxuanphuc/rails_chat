@@ -1,0 +1,20 @@
+<li>
+  <div class="panel panel-default" id="messages" data-user-id="<%= user.id %>">
+    <div class="panel-heading">
+      <%= link_to user.email %>
+    </div>
+
+    <div class="panel-body">
+      <div class="messages-list">
+        <ul>
+          <%= render "messages/conversation_content" %>
+        </ul>
+      </div>
+
+      <form class="new_message">
+        <input name="user_id" type="hidden" value="<%= user.id %>">
+        <textarea name="body" class="form-control text-area"></textarea>
+      </form>
+    </div>
+  </div>
+</li>

@@ -4,11 +4,5 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => "/cable"
 
-  resources :conversations, only: [:create] do
-    resources :messages, only: [:create]
-
-    member do
-      post :close
-    end
-  end
+  resources :messages, only: [:create]
 end

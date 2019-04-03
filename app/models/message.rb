@@ -1,12 +1,11 @@
 class Message < ApplicationRecord
   belongs_to :user
-  belongs_to :conversation
 
-  after_create_commit :message_broadcast
+  # after_create_commit :message_broadcast
 
-  private
+  # private
 
-  def message_broadcast
-    MessageBroadcastJob.perform_later(self)
-  end
+  # def message_broadcast
+  #   MessageBroadcastJob.perform_later(self)
+  # end
 end
