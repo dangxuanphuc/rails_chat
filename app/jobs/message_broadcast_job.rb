@@ -1,5 +1,5 @@
 class MessageBroadcastJob < ApplicationJob
-  # queue_as :default
+  queue_as :default
 
   # def perform message
   #   sender = message.user
@@ -22,7 +22,7 @@ class MessageBroadcastJob < ApplicationJob
   # def broadcast_to_recipient user, message
   #   ActionCable.server.broadcast(
   #     "conversation-with-user-#{user.id}-channel",
-  #     window: render_window(message.conversation, user),
+  #     # window: render_window(message.conversation, user),
   #     message: render_message(message, user),
   #     conversation_id: message.conversation_id
   #   )

@@ -4,7 +4,8 @@ jQuery(document).on 'turbolinks:load', ->
 
     App.conversation = App.cable.subscriptions.create {
         channel: 'ConversationChannel'
-        user_id: messages.data('user-id')
+        sender_id: messages.data('user-id')
+        recipient_id: 
       },
 
       connected: ->
@@ -12,31 +13,12 @@ jQuery(document).on 'turbolinks:load', ->
       disconnected: ->
 
       received: (data) ->
-        # conversation = $('#conversations-list').find("[data-conversation-id='" + data['conversation_id'] + "']")
+        console.log(data['message'])
 
-        # if data['window'] != undefined
-        #   conversation_visible = conversation.is(':visible')
+      speak: (message, sender_id, recipient_id) ->
+        @perform 'speak', message: message, sender_id: sender_id, recipient_id: recipient_id
 
-        #   if conversation_visible
-        #     messages_visible = (conversation).find('.panel-body').is(':visible')
-        #     if !messages_visible
-        #       conversation.removeClass('panel-default').addClass('panel-success')
-        #     conversation.find('.messages-list').find('ul').append(data['message'])
-        #   else
-        #     $('#conversations-list').append(data['window'])
-        #     conversation = $('#conversations-list').find("[data-conversation-id='" + data['conversation_id'] + "']")
-        #     conversation.find('.panel-body').toggle()
-        # else
-        #   conversation.find('ul').append(data['message'])
-
-        # messages_list = conversation.find('.messages-list')
-        # height = messages_list[0].scrollHeight
-        # messages_list.scrollTop(height)
-
-      speak: (message, user_id) ->
-        @perform 'speak', message: message, user_id: user_id
-
-    $(document).on 'keypress', '.new_message', (e) ->
+    $(document).on 'keypress', '#new_message', (e) ->
       if e.keyCode == 13
         e.preventDefault()
         values = $(this).serializeArray()
