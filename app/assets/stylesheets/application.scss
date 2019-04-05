@@ -12,7 +12,7 @@ ul {
   overflow-x: hidden;
 }
 
-#message-sent {
+.message-sent {
   position: relative;
   background-color: #3578e5;
   color: #fff;
@@ -22,7 +22,7 @@ ul {
   float: right;
 }
 
-#message-received {
+.message-received {
   background-color: #f1f1f1;
   margin: 1px 20px;
   padding: 3px 10px;
