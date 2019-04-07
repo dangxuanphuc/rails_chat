@@ -1,12 +1,12 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
 
 ul {
   padding-left: 0px;
   list-style: none;
 }
 
-.messages-list {
+#messages-list {
   max-height: 200px;
   overflow-y: auto;
   overflow-x: hidden;
