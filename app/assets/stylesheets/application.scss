@@ -12,6 +12,12 @@ ul {
   overflow-x: hidden;
 }
 
+#message-content {
+  margin: 1px 20px;
+  padding: 3px 10px;
+  border-radius: 30px;
+}
+
 .message-sent {
   position: relative;
   background-color: #3578e5;
@@ -33,4 +39,17 @@ ul {
 .text-area {
   resize: vertical;
   margin: 10px 0 0 0;
+}
+
+#user-online .inactive { display: none; }
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.user-info {
+  height: 40px;
+  margin: 10px;
 }

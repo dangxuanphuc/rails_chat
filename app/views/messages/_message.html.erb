@@ -1,7 +1,12 @@
+<%
+  class_div = if request.env["warden"]
+    current_user.id == message.sender_id ? 'message-sent' : 'message-received'
+  end
+%>
 <li>
   <div class="row">
-    <div class="<%= current_user.id == message.sender_id ? 'message-sent' : 'message-received' %>">
-      <%= message.body %>
+    <div id="message-<%= message.id %>" class="<%= class_div %>">
+      <%= emojify message.body %>
     </div>
   </div>
 </li>
