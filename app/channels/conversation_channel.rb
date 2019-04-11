@@ -1,6 +1,7 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "conversation-with-user-#{params['user_id']}"
+    suffix_str = [params['user_id'].to_i, current_user.id].sort.join("-")
+    stream_from "conversation-with-user-#{suffix_str}"
   end
 
   def unsubscribed
