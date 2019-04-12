@@ -6,10 +6,10 @@
     </div>
     <ul class="list">
       <% @users.each do |user| %>
-        <li class="clearfix">
+        <li class="clearfix" id="user-id-<%= user.id %>">
           <%= gravatar_for user %>
           <div class="about">
-            <%= link_to user.name, "#", id: "user-id-#{user.id}", class: "current-user-#{current_user.id}" %>
+            <%= link_to user.name, "#", class: "current-user-#{current_user.id}" %>
             <div class="status">
               <% if user.online %>
                 <div class="fa fa-circle online" id="user-<%= user.id %>-status"> <span>online</span></div>
@@ -24,6 +24,8 @@
   </div>
 
   <div class="chat">
-    <div id="conversation"></div>
+    <div id="conversation">
+      <%= render "messages/conversation", messages: @messages_first, user: @users.first %>
+    </div>
   </div>
 </div>

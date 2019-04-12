@@ -1,5 +1,6 @@
+App.conversation = {}
 conversation_function = (current_user_id, user_id) ->
-  App.conversation = App.cable.subscriptions.create {
+  App.conversation["#{user_id}"] = App.cable.subscriptions.create {
       channel: 'ConversationChannel'
       current_user_id: current_user_id
       user_id: user_id
@@ -27,13 +28,10 @@ $(document).on 'keypress', '.new_message', (e) ->
     e.preventDefault()
     user_id = $(this).find("input").val()
     message = $(this).find("textarea").val()
-    App.conversation.speak(message, user_id)
+    App.conversation["#{user_id}"].speak(message, user_id)
     $(this).trigger('reset')
 
-$(document).on 'click', 'a[id^=user-id]', (e) ->
-  e.preventDefault()
-  user_id = $(@).attr('id').replace(/user-id-/, '')
-  current_user_id = $(@).attr('class').replace(/current-user-/, '')
+send_message = (current_user_id, user_id) ->
   $.ajax
     dataType: 'json'
     method: 'GET'
@@ -43,9 +41,28 @@ $(document).on 'click', 'a[id^=user-id]', (e) ->
       user_id: user_id
     success: (data) ->
       $('#conversation').html(data.conversation_html)
-      conversation_function(current_user_id, user_id)
+      if App.conversation["#{user_id}"] is undefined
+        conversation_function(current_user_id, user_id)
+      current_active = $('.active')
+      if current_active.length > 0
+        current_active.removeClass('active')
+      $("#user-id-#{user_id}").addClass('active')
 
       conversation = $('#conversation').find("[data-user-id='" + user_id + "']")
       messages_list = conversation.find('#messages-list')
       height = messages_list[0].scrollHeight
       messages_list.scrollTop(height)
+
+$(document).on 'click', 'li[id^=user-id]', (e) ->
+  e.preventDefault()
+  $this = $(@)
+  user_id = $this.attr('id').replace(/user-id-/, '')
+  current_user_id = $this.find('.about a').attr('class').replace(/current-user-/, '')
+  send_message(current_user_id, user_id)
+
+$(document).on 'turbolinks:load', (e) ->
+  e.preventDefault()
+  $this = $(@)
+  user_id = $this.find('#messages').data('user-id')
+  current_user_id = $this.find('#messages').data('current-user')
+  send_message(current_user_id, user_id)

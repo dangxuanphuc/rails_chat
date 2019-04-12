@@ -7,6 +7,7 @@ class MessagesController < ApplicationController
       @users = User.where.not(id: current_user.id)
     else
       @users = User.where.not(id: current_user.id)
+      @messages_first = Message.find_by_recipient_and_sender(@users.first, current_user.id)
     end
   end
 end
