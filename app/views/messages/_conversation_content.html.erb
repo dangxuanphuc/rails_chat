@@ -1,3 +1,7 @@
-<% messages.each do |message| %>
-  <%= render message, user: user %>
-<% end %>
+<li class="clearfix">
+  <div class="message-data">
+    <% messages.each do |message| %>
+      <%= render message, user: user %>
+    <% end %>
+  </div>
+</li>

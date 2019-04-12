@@ -1,32 +1,29 @@
-<div class="row">
-  <div class="col-md-3">
-    <div class="panel panel-primary">
-      <div class="panel-heading">
-        <h3 class="panel-title">User list</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-          <% @users.each do |user| %>
-            <div class="user-info">
-              <%= gravatar_for user %>
-              <li>
-                <%= link_to user.name, "#", id: "user-id-#{user.id}", class: "current-user-#{current_user.id}" %>
-                <span id="user-online">
-                  <% if user.online %>
-                    <%= image_tag "online.png", id: "user-#{user.id}-status", class: "active", title: "Online" %>
-                  <% else %>
-                    <%= image_tag "online.png", id: "user-#{user.id}-status", class: "inactive" %>
-                  <% end %>
-                </span>
-              </li>
-            </div>
-          <% end %>
-        </ul>
-      </div>
+<div class="container-chat clearfix">
+  <div class="people-list" id="people-list">
+    <div class="search">
+      <input type="text" placeholder="search" />
+      <i class="fa fa-search"></i>
     </div>
+    <ul class="list">
+      <% @users.each do |user| %>
+        <li class="clearfix">
+          <%= gravatar_for user %>
+          <div class="about">
+            <%= link_to user.name, "#", id: "user-id-#{user.id}", class: "current-user-#{current_user.id}" %>
+            <div class="status">
+              <% if user.online %>
+                <div class="fa fa-circle online" id="user-<%= user.id %>-status"> <span>online</span></div>
+              <% else %>
+                <div class="fa fa-circle offline" id="user-<%= user.id %>-status"> <span>offline</span></div>
+              <% end %>
+            </div>
+          </div>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
-  <div class="col-md-9">
+  <div class="chat">
     <div id="conversation"></div>
   </div>
 </div>

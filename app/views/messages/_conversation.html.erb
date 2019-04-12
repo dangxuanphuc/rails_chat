@@ -1,21 +1,20 @@
-<div class="panel panel-default" id="messages" data-user-id="<%= user.id %>">
-  <div class="panel-heading" id="user-name">
-    <%= link_to user.name, "", user: user %>
-    <% if user.online %>
-      <%= image_tag "online.png", id: "#{user.id}-status", title: "Online" %>
-    <% end %>
+<div id="messages" data-user-id="<%= user.id %>">
+  <div class="chat-header clearfix">
+    <%= gravatar_for user %>
+    <div class="chat-about">
+      <div class="chat-with">Chat with <%= user.name %></div>
+    </div>
+    <i class="fa fa-star"></i>
   </div>
 
-  <div class="panel-body">
-    <div id="messages-list">
-      <ul>
-        <%= render "messages/conversation_content", messages: messages, user: user %>
-      </ul>
-    </div>
+  <div class="chat-history" id="messages-list">
+    <ul>
+      <%= render "messages/conversation_content", messages: messages, user: user %>
+    </ul>
+  </div>
 
-    <form class="new_message">
-      <input name="user_id" type="hidden" value="<%= user.id %>">
-      <textarea name="body" class="form-control text-area"></textarea>
-    </form>
+  <form class="new_message chat-message clearfix">
+    <input name="user_id" type="hidden" value="<%= user.id %>">
+    <textarea name="body" class="form-control text-area" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
   </div>
 </div>
