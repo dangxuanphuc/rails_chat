@@ -4,7 +4,7 @@ class Message < ApplicationRecord
 
   after_create_commit :message_broadcast
 
-  scope :find_by_recipient_and_sender, -> (sender_id, recipient_id) do
+  scope :filter_by_recipient_and_sender, -> (sender_id, recipient_id) do
     where(sender_id: sender_id, recipient_id: recipient_id).or(
       where(sender_id: recipient_id, recipient_id: sender_id)
     )

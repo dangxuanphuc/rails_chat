@@ -9,16 +9,27 @@ conversation_function = (current_user_id, user_id) ->
     disconnected: ->
     received: (data) ->
       conversation = $('#conversation').find("[data-user-id='" + user_id + "']")
-      conversation.find('#messages-list').find('ul').append(data['message'])
-      message_id = data['message_id']
-      if data['sender_id'] == parseInt(current_user_id)
-        $("#message-#{message_id}").addClass('message-sent')
-      else
-        $("#message-#{message_id}").addClass('message-received')
+      conversation_visible = conversation.is(':visible')
+      if conversation_visible
+        conversation.find('#messages-list').find('ul').append(data['message'])
+        message_id = data['message_id']
+        if data['sender_id'] == parseInt(current_user_id)
+          $("#message-#{message_id}").addClass('message-sent')
+        else
+          $("#message-#{message_id}").addClass('message-received')
 
-      messages_list = conversation.find('#messages-list')
-      height = messages_list[0].scrollHeight
-      messages_list.scrollTop(height)
+        messages_list = conversation.find('#messages-list')
+        height = messages_list[0].scrollHeight
+        messages_list.scrollTop(height)
+      else
+        count_message = $('#count-message').is(':visible')
+        val_div = parseInt($('#count-message').text())
+        if !count_message
+          $('#count-message').css('display', 'inline-block')
+          $('#count-message').text(val_div + 1)
+        else
+          val_div += 1
+          $('#count-message').text(val_div)
 
     speak: (message, user_id) ->
       @perform 'speak', message: message, user_id: user_id
@@ -47,6 +58,8 @@ send_message = (current_user_id, user_id) ->
       if current_active.length > 0
         current_active.removeClass('active')
       $("#user-id-#{user_id}").addClass('active')
+      $('#count-message').css('display', 'none')
+      $('#count-message').text(0)
 
       conversation = $('#conversation').find("[data-user-id='" + user_id + "']")
       messages_list = conversation.find('#messages-list')
