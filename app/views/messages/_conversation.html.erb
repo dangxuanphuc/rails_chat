@@ -1,8 +1,13 @@
-<div id="messages" data-user-id="<%= user.id %>">
+<div id="messages" data-user-id="<%= user.id %>" data-current-user="<%= current_user.id %>">
   <div class="chat-header clearfix">
     <%= gravatar_for user %>
     <div class="chat-about">
-      <div class="chat-with">Chat with <%= user.name %></div>
+      <div class="chat-with"><%= user.name %></div>
+      <% if user.online %>
+        <div class="online" id="chat-status-<%= user.id %>">Active now</div>
+      <% else %>
+        <div class="offline" id="chat-status-<%= user.id %>"><%= user.set_online_time %></div>
+      <% end %>
     </div>
     <i class="fa fa-star"></i>
   </div>
