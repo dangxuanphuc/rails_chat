@@ -1,11 +1,21 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :validatable
+  devise :omniauthable, omniauth_providers: [:google_oauth2]
 
   has_many :sender_messages, class_name: Message.name, foreign_key: :sender_id
   has_many :recipient_messages, class_name: Message.name, foreign_key: :recipient_id
 
   after_update_commit :appearance_broadcast
+
+  def self.from_omniauth provider_data
+    where(provider: provider_data.provider, uid: provider_data.uid)
+      .first_or_create do | user |
+      user.name = provider_data.info.name
+      user.email = provider_data.info.email
+      user.password = Devise.friendly_token[0, 20]
+    end
+  end
 
   def set_online_time
     start_time = Time.now
