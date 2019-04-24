@@ -25,10 +25,11 @@
 /yarn-error.log
 
 /public/assets
-/public/images
+
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-/vendor/emoji
+# Ignore application configuration
+/config/application.yml
