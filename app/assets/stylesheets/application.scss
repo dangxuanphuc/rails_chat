@@ -193,14 +193,13 @@ ul {
   list-style: none;
 }
 
-#count-message {
+.count-message {
   background-color: $orange-dark;
   color: white;
   width: auto;
   min-width: 20px;
   height: 20px;
   border-radius: 50%;
-  display: inline-block;
   margin-left: 10px;
   text-align: center;
   display: none;
