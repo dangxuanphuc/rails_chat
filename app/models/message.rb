@@ -10,6 +10,8 @@ class Message < ApplicationRecord
     )
   end
 
+  validates :body, presence: true
+
   private
 
   def message_broadcast
